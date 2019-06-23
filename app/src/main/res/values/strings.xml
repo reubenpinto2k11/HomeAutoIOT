@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HomeAutomationIOT</string>
+    <string name="app_name">HomeAutoIOT</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_Dashboard">Home Automation Dashboard</string>
 </resources>

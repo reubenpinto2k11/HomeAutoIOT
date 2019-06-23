@@ -1,23 +1,36 @@
 package com.student.homeautomationiot.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import com.student.homeautomationiot.R
 
-import kotlinx.android.synthetic.main.activity_splash.*
-
 class SplashActivity : AppCompatActivity() {
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        handler = Handler()
+        runnable = Runnable {
+            val intentToDashboardActivity= Intent(this, DashboardActivity::class.java)
+            startActivity(intentToDashboardActivity)
+            finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        handler?.postDelayed(runnable, 3000)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler?.removeCallbacks(runnable)
     }
 
 }
