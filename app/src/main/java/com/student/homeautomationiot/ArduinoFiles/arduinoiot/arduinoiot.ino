@@ -1,144 +1,49 @@
 #include <SimpleDHT.h>
 
-#define IP_AUTO_PIN 2
-#define IP_LIGHT_ON_PIN 5
-#define IP_FAN_ON_PIN 7
+#define IP_FAN1 2
+#define IP_LIGHT1 3
+#define IP_LIGHT2 4
 
-#define IP_LDR_PIN A0
-#define IP_DHT_PIN 9
-#define IP_MD_PIN 39
-
-#define OP_FAN_ON 49
-#define OP_LIGHT_ON 51
-
-SimpleDHT11 dht11(IP_DHT_PIN);
-
-volatile byte state_auto = LOW;
-volatile byte state_fan = LOW;
-volatile byte state_light = LOW;
-
-int lastMotionCounter = 0;
-int NO_MOTION_THRESHOLD = 40;
-
-int LDRReading;
-int LDRThreshold = 50;
+#define OP_FAN1 35
+#define OP_LIGHT1 39
+#define OP_LIGHT2 43
 
 void setup() {
   Serial.begin(9600);
-  pinMode(IP_AUTO_PIN, INPUT);
-  pinMode(IP_LIGHT_ON_PIN, INPUT);
-  pinMode(IP_FAN_ON_PIN, INPUT);
+  pinMode(IP_FAN1, INPUT);
+  pinMode(IP_LIGHT1, INPUT);
+  pinMode(IP_LIGHT2, INPUT);
   
-  pinMode(IP_DHT_PIN, INPUT);
-  pinMode(IP_MD_PIN, INPUT);
-
-  pinMode(OP_FAN_ON, OUTPUT);
-  pinMode(OP_LIGHT_ON, OUTPUT);
+  pinMode(OP_FAN1, OUTPUT);
+  pinMode(OP_LIGHT1, OUTPUT);
+  pinMode(OP_LIGHT2, OUTPUT);
 }
 
 void loop() {
-  int isAuto = digitalRead(IP_AUTO_PIN);
-  if (isAuto == HIGH) {
-    //Automatic state
-    Serial.println("State auto");
-    
-    //if is switching from manual to auto reset everything
-    if (state_auto == LOW) {
-      state_auto = HIGH;
-      state_fan = LOW;
-      state_light = LOW;
-      digitalWrite(OP_FAN_ON, LOW);
-      digitalWrite(OP_LIGHT_ON, LOW);
-      lastMotionCounter = NO_MOTION_THRESHOLD;
-    }
-
-    int hasMotionBeenDetected = digitalRead(IP_MD_PIN);
-    Serial.println("Motion detection"); Serial.println(hasMotionBeenDetected);
-    // if motion is present reset counter else increment count
-    if (hasMotionBeenDetected == HIGH) {
-      lastMotionCounter = 0;
-    }
-    else {
-      lastMotionCounter += 1;
-    }
-
-    //check count value against threshold (5mins), switch off if no motion for 5 mins
-    if (lastMotionCounter < NO_MOTION_THRESHOLD) {
-      //check temprature if beyond above threshold and start fan
-      byte temperature = 0;
-      byte humidity = 0;
-      int err = SimpleDHTErrSuccess;
-      if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-        Serial.println("Read DHT11 failed, err="); Serial.println(err);        
-      }
-      else {
-        if (((int)temperature > 25) && (state_fan == LOW)) {
-         digitalWrite(OP_FAN_ON, HIGH);
-         state_fan = HIGH; 
-        }
-      }
-
-      //check light intensity if below intensity turn on light
-      LDRReading = analogRead(IP_LDR_PIN);
-      Serial.println("LDR reading"); Serial.println(LDRReading);
-      if ((LDRReading > LDRThreshold) && (state_light == LOW)) {
-        digitalWrite(OP_LIGHT_ON, HIGH);
-        state_light = HIGH;
-      }
-    }
-    else {
-      if (state_fan == HIGH) {
-        digitalWrite(OP_FAN_ON, LOW);
-        state_fan = LOW;
-      }
-      if (state_light == HIGH) {
-        digitalWrite(OP_LIGHT_ON, LOW);
-        state_light = LOW;
-      }
-    }
+  Serial.print("fan: ");Serial.println(digitalRead(IP_FAN1));
+  if (digitalRead(IP_FAN1) == HIGH) {
+    digitalWrite(OP_FAN1, LOW);
+    Serial.println("fanOP: LOW");
   }
   else {
-    // Manual state
-    Serial.println("State manual");
-    if (state_auto == HIGH) {
-      state_auto = LOW;
-      state_fan = LOW;
-      state_light = LOW;
-      digitalWrite(OP_FAN_ON, LOW);
-      digitalWrite(OP_LIGHT_ON, LOW);
-    }
-
-    //check fan inputs
-    int isFanOn = digitalRead(IP_FAN_ON_PIN);
-    Serial.println("isFanON"); Serial.println(isFanOn);
-    if (isFanOn == HIGH) {
-      if (state_fan == LOW) {
-        digitalWrite(OP_FAN_ON, HIGH);
-        state_fan = HIGH;
-      }
-    }
-    else {
-      if (state_fan == HIGH) {
-        digitalWrite(OP_FAN_ON, LOW);
-        state_fan = LOW;              
-      }
-    }
-
-    //check light inputs
-    int isLightOn = digitalRead(IP_LIGHT_ON_PIN);
-    Serial.println("is light on"); Serial.println(isLightOn);
-    if (isLightOn == HIGH) {
-      if (state_light == LOW) {
-        digitalWrite(OP_LIGHT_ON, HIGH);
-        state_light = HIGH;
-      }  
-    }
-    else {
-      if (state_light == HIGH) {
-        digitalWrite(OP_LIGHT_ON, LOW);
-        state_light = LOW;              
-      }
-    }
+    digitalWrite(OP_FAN1, HIGH);
+    Serial.println("fanOP: Low");
   }
-  delay(1500);
+
+  Serial.print("light1: ");Serial.println(digitalRead(IP_LIGHT1));
+  if (digitalRead(IP_LIGHT1) == HIGH) {
+    digitalWrite(OP_LIGHT1, LOW);    
+  }
+  else {
+    digitalWrite(OP_LIGHT1, HIGH);    
+  }
+
+  Serial.print("light2: ");Serial.println(digitalRead(IP_LIGHT2));
+  if (digitalRead(IP_LIGHT2) == HIGH) {
+    digitalWrite(OP_LIGHT2, LOW);    
+  }
+  else {
+    digitalWrite(OP_LIGHT2, HIGH);    
+  }
+  delay(500);
 }

@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">HomeAutoIOT</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="title_activity_Dashboard">Home Automation Dashboard</string>
+    <string name="dash_board_operating_modes_text">Operating Modes:</string>
+    <string name="deashboard_room_statistics_text">Room Statistics</string>
+    <string name="dashboard_temperature_text">Temperature:</string>
+    <string name="dashboard_humidity_text">Humidity:</string>
+    <string name="dashboard_light_intensity_text">Light Intensity</string>
+    <string name="dashboard_manual_controls_text">Manual Controls:</string>
+    <string name="dashboard_turn_all_on_text">turn all on</string>
+    <string name="dashboard_turn_all_off_text">turn all off</string>
+    <string name="dashboard_light_1_controls_text">Light 1 Controls</string>
+    <string name="dashboard_lights_icon_desc">light icon</string>
+    <string name="dashboard_light_2_controls_text">Light 2 Controls</string>
+    <string name="dashboard_fan_1_controls_text">Fan 1 Controls</string>
+    <string name="dashboard_fan_icon_desc">fan icon</string>
+
+    <string name="humidity_format">%1$d RH</string>
+    <string name="temp_format">%1$d C</string>
+    <string name="intensity_format">%1d</string>
 </resources>

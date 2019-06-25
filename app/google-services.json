@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "601451388416",
-    "firebase_url": "https://nodemcutest-b1398.firebaseio.com",
-    "project_id": "nodemcutest-b1398",
-    "storage_bucket": "nodemcutest-b1398.appspot.com"
+    "project_number": "847964383162",
+    "firebase_url": "https://iotnodemcu-98537.firebaseio.com",
+    "project_id": "iotnodemcu-98537",
+    "storage_bucket": "iotnodemcu-98537.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:601451388416:android:15c6fd870a0bb3df",
+        "mobilesdk_app_id": "1:847964383162:android:15c6fd870a0bb3df",
         "android_client_info": {
           "package_name": "com.student.homeautomationiot"
         }
       },
       "oauth_client": [
         {
-          "client_id": "601451388416-mdrd9nsil8da2e5mf4h67n1pqiju9ulj.apps.googleusercontent.com",
+          "client_id": "847964383162-ki98d9qq3ds0ebeqdgne90nbmpluhn68.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAACRz0iWSFsTcgl65F-XgBkbwlZD55Hu0"
+          "current_key": "AIzaSyC-HgF05vHY9AeGRsHZWF7_ZdCbGIplpBc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "601451388416-mdrd9nsil8da2e5mf4h67n1pqiju9ulj.apps.googleusercontent.com",
+              "client_id": "847964383162-ki98d9qq3ds0ebeqdgne90nbmpluhn68.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
